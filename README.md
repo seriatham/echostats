@@ -2,8 +2,6 @@
 
 A sophisticated analytics engine that bridges the gap between instant music discovery and deep-data forensics. EchoStats provides a dual-entry point for users to visualize their Spotify identity through real-time API integration and comprehensive historical file analysis.
 
----
-
 ## Core Methodology
 
 ### Instant Analytics
@@ -19,16 +17,12 @@ Unlocks the full potential of user-requested Spotify data exports. This mode byp
 * **Longitudinal Trends:** Multi-year habit tracking that surpasses the limits of standard annual summaries.
 * **Session Mapping:** Detecting patterns in listening streaks and time-of-day peak activity.
 
----
-
 ## Technical Architecture
 
 * **Framework:** Next.js (React)
 * **Visuals:** Chart.js / Tailwind CSS
 * **Data Processing:** Client-side JSON stream parsing
 * **Authentication:** OAuth 2.0 (Authorization Code Flow)
-
----
 
 ## Privacy Architecture
 

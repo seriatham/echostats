@@ -31,6 +31,21 @@ export default function Home() {
 
   const totalMinutes = history.reduce((acc, song) => acc + (song.msPlayed / 60000), 0);
 
+  // --- TOP SONGS LOGIC ---
+  const topSongs = Object.values(
+    history.reduce((acc, song) => {
+      const id = `${song.trackName}-${song.artistName}`;
+      if (!acc[id]) {
+        acc[id] = { ...song, count: 0, totalMs: 0 };
+      }
+      acc[id].count += 1;
+      acc[id].totalMs += song.msPlayed;
+      return acc;
+    }, {} as Record<string, SpotifyHistory & { count: number; totalMs: number }>)
+  )
+    .sort((a, b) => b.totalMs - a.totalMs) // Sorting by most time played
+    .slice(0, 5);
+
   if (history.length > 0) {
     return (
       <div className="min-h-screen bg-black p-8 text-white font-sans animate-in fade-in duration-700">
@@ -51,19 +66,25 @@ export default function Home() {
 
           <section>
             <div className="flex justify-between items-end mb-6">
-              <h2 className="text-2xl font-bold">Recent History</h2>
-              <p className="text-zinc-500 text-sm">{history.length} total tracks</p>
+              <h2 className="text-2xl font-bold tracking-tight">Your Top 5 Tracks</h2>
+              <p className="text-zinc-500 text-sm">Based on time played</p>
             </div>
             
             <div className="space-y-3">
-              {history.slice(0, 5).map((song, index) => (
-                <div key={index} className="flex justify-between items-center rounded-xl bg-zinc-900/50 p-5 border border-zinc-800 hover:border-zinc-700 transition-all">
-                  <div>
-                    <p className="font-bold text-white text-lg leading-tight">{song.trackName}</p>
-                    <p className="text-green-500">{song.artistName}</p>
+              {topSongs.map((song, index) => (
+                <div key={index} className="flex justify-between items-center rounded-xl bg-zinc-900/50 p-5 border border-zinc-800 hover:border-green-500/30 transition-all group">
+                  <div className="flex items-center gap-4">
+                    <span className="text-zinc-700 font-black text-2xl group-hover:text-green-500/50 transition-colors w-6">
+                      {index + 1}
+                    </span>
+                    <div>
+                      <p className="font-bold text-white text-lg leading-tight">{song.trackName}</p>
+                      <p className="text-zinc-400 group-hover:text-green-500 transition-colors">{song.artistName}</p>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-zinc-400 font-mono text-sm">{(song.msPlayed / 60000).toFixed(1)}m</p>
+                    <p className="text-white font-mono text-sm">{Math.floor(song.totalMs / 60000)}m</p>
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-tighter">{song.count} plays</p>
                   </div>
                 </div>
               ))}

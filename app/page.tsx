@@ -31,7 +31,6 @@ export default function Home() {
 
   const totalMinutes = history.reduce((acc, song) => acc + (song.msPlayed / 60000), 0);
 
-  // --- TOP SONGS LOGIC ---
   const topSongs = Object.values(
     history.reduce((acc, song) => {
       const id = `${song.trackName}-${song.artistName}`;
@@ -43,7 +42,7 @@ export default function Home() {
       return acc;
     }, {} as Record<string, SpotifyHistory & { count: number; totalMs: number }>)
   )
-    .sort((a, b) => b.totalMs - a.totalMs) // Sorting by most time played
+    .sort((a, b) => b.totalMs - a.totalMs)
     .slice(0, 5);
 
   if (history.length > 0) {
@@ -52,7 +51,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
           <button 
             onClick={() => setHistory([])} 
-            className="text-xs text-zinc-500 hover:text-green-500 transition-colors mb-12 uppercase tracking-widest"
+            className="cursor-pointer text-xs text-zinc-500 hover:text-green-500 transition-colors mb-12 uppercase tracking-widest"
           >
             ← Upload different file
           </button>

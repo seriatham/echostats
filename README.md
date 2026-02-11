@@ -22,7 +22,6 @@ Unlocks the full potential of user-requested Spotify data exports. This mode byp
 ## Technical Architecture
 
 * **Framework:** Next.js (React)
-* **Visuals:** Chart.js / Tailwind CSS
 * **Data Processing:** Client-side JSON stream parsing
 * **Authentication:** OAuth 2.0 (Authorization Code Flow)
 
